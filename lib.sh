@@ -10,9 +10,12 @@ count_words() {
 }
 
 is_palindrome() {
-  local input clean reversed
+  local input clean reversed i
   input="$1"
   clean=$(printf '%s' "$input" | tr -d '[:space:]' | tr '[:upper:]' '[:lower:]')
-  reversed=$(printf '%s' "$clean" | rev)
+  reversed=""
+  for (( i=${#clean}-1; i>=0; i-- )); do
+    reversed="$reversed${clean:$i:1}"
+  done
   [ "$clean" = "$reversed" ]
 }
